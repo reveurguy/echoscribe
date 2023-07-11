@@ -19,12 +19,15 @@ export default async function handler(req, res) {
 
 	try {
 		// 2. initialize formidable
-		let form = new formidable.IncomingForm();
+		let form = new formidable.IncomingForm({
+			uploadDir: '/tmp',
+			keepExtensions: true
+		});
 
 		// 3. save the file locally
-		form.on('fileBegin', (name, file) => {
-			file.path = `./files/${file.name}`
-		})
+		// form.on('fileBegin', (name, file) => {
+		// 	file.path = `./files/${file.name}`
+		// })
 
 		// 4. parse form by formidable
 		form.parse(req, async (error, fields, files) => {
